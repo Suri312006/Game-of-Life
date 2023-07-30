@@ -1,20 +1,48 @@
 from unit import Unit
 import random
 import pygame
+import pygame.gfxdraw
 
-ROWS = 10
-COLS = 100
+
+
+ROWS = 500
+COLS = 500
+SIZE = 2
 
 board = [[Unit() for i in range(COLS)] for j in range(ROWS)]
 
-
+pygame.display.set_caption("Game of Life")
 def main():
 
+
+    screen = pygame.display.set_mode((ROWS*SIZE, COLS*SIZE))
+    clock = pygame.time.Clock()
+    running = True
     scramble()
-    print_board()
-    while True:
+    logic()
+    while running:
+        # poll for events
+        # pygame.QUIT event means the user clicked X to close your window
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # fill the screen with a color to wipe away anything from last frame
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                cell = board[i][j]
+                cell.draw(i*SIZE, j*SIZE, SIZE, screen=screen)
+
+
+        # RENDER YOUR GAME HERE
         logic()
-        print_board()
+        # flip() the display to put your work on screen
+        pygame.display.flip()
+
+        clock.tick(60)  # limits FPS to 60
+
+    pygame.quit()
+
 
 
 def logic():
@@ -108,20 +136,23 @@ def print_board():
         print("_", end='')
     print('')
 
+
 def scramble():
     for i in board:
         for j in i:
             int = random.randint(0, 100)
-            if int < 90:
+            if int < 95:
                 j.state = False
-            elif int >= 90:
+            elif int >= 95:
                 j.state = True
             else:
                 raise Exception("wtf happened")
 
 
 # Press the green button in the gutter to run the script.
-if __name__ == '__main__':
+if __name__ == "__main__":
+    pygame.init()
     main()
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
