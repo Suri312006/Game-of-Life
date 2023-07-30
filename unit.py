@@ -1,16 +1,18 @@
-def __init__(self):
-    self.state = False
+class Unit:
+    def __init__(self):
+        self.state = False
 
-@property
-def state(self):
-    return self._state
+    @property
+    def state(self):
+        return self._state
 
-@state.setter
-def set_state(self, bool):
-    self._state = bool
+    @state.setter
+    def state(self, value):
+        self._state = value
 
-def alive(self):
-    self.set_state(True)
+    def alive(self):
+        self.state(True)
 
-def die(self):
-    self.set_state(False)
+    def die(self):
+        self.state(False)
+
