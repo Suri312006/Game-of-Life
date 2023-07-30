@@ -12,11 +12,24 @@ def main():
     scramble()
     print_board()
 
+
+def logic():
+    for i in board:
+        for cell in i:
+            print("wtf do i do")
+
+
+    # Any live cell with 0 or 1 live neighbors dies (underpopulation)
+    # Any live cell with 2 or 3 live neighbors stays alive
+    # any live cell with more than 3 live neighbors dies (overpopulation)
+    # any dead cell with exactly 3 neighbors becomes alive, by reproduction
+
+
+
 def print_board():
     global board
     for i in board:
         for j in i:
-
             if j.state == True:
                 print("#", end='')
             elif j.state == False:
