@@ -1,6 +1,6 @@
 class Unit:
     def __init__(self):
-        self.state = False
+        self.state = True
 
     @property
     def state(self):

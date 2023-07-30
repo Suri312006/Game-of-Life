@@ -1,16 +1,31 @@
-# This is a sample Python script.
+from unit import Unit
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+ROWS = 10
+COLS = 10
+
+board = [[Unit() for i in range(COLS)] for j in range(ROWS)]
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def main():
+    print_board()
+
+
+def print_board():
+    global board
+    for i in board:
+        for j in i:
+
+            if j.state == True:
+                print("#", end='')
+            elif j.state == False:
+                print("", end='')
+            else:
+                raise TypeError("Unit isnt the correct type")
+        print("")
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    main()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
