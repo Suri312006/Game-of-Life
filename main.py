@@ -2,19 +2,40 @@ from unit import Unit
 import random
 import pygame
 
-ROWS = 10
+
+
+ROWS = 100
 COLS = 100
 
 board = [[Unit() for i in range(COLS)] for j in range(ROWS)]
 
-
 def main():
 
-    scramble()
-    print_board()
-    while True:
-        logic()
-        print_board()
+
+    screen = pygame.display.set_mode((ROWS*5, COLS*5))
+    clock = pygame.time.Clock()
+    running = True
+    while running:
+        # poll for events
+        # pygame.QUIT event means the user clicked X to close your window
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        # fill the screen with a color to wipe away anything from last frame
+        screen.fill("purple")
+
+        pygame.draw.line(screen, (60, 179, 113), [0, 0], [50, 30], 5)
+
+        # RENDER YOUR GAME HERE
+
+        # flip() the display to put your work on screen
+        pygame.display.flip()
+
+        clock.tick(60)  # limits FPS to 60
+
+    pygame.quit()
+
 
 
 def logic():
@@ -108,6 +129,7 @@ def print_board():
         print("_", end='')
     print('')
 
+
 def scramble():
     for i in board:
         for j in i:
@@ -121,7 +143,9 @@ def scramble():
 
 
 # Press the green button in the gutter to run the script.
-if __name__ == '__main__':
+if __name__ == "__main__":
+    pygame.init()
     main()
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
