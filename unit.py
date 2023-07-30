@@ -11,8 +11,8 @@ class Unit:
         self._state = value
 
     def alive(self):
-        self.state(True)
+        self.state = True
 
     def die(self):
-        self.state(False)
+        self.state = False
 
