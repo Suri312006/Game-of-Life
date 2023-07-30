@@ -1,20 +1,25 @@
 from unit import Unit
 import random
 import pygame
+import pygame.gfxdraw
 
 
 
-ROWS = 100
-COLS = 100
+ROWS = 500
+COLS = 500
+SIZE = 2
 
 board = [[Unit() for i in range(COLS)] for j in range(ROWS)]
 
+pygame.display.set_caption("Game of Life")
 def main():
 
 
-    screen = pygame.display.set_mode((ROWS*5, COLS*5))
+    screen = pygame.display.set_mode((ROWS*SIZE, COLS*SIZE))
     clock = pygame.time.Clock()
     running = True
+    scramble()
+    logic()
     while running:
         # poll for events
         # pygame.QUIT event means the user clicked X to close your window
@@ -23,12 +28,14 @@ def main():
                 running = False
 
         # fill the screen with a color to wipe away anything from last frame
-        screen.fill("purple")
+        for i in range(len(board)):
+            for j in range(len(board[i])):
+                cell = board[i][j]
+                cell.draw(i*SIZE, j*SIZE, SIZE, screen=screen)
 
-        pygame.draw.line(screen, (60, 179, 113), [0, 0], [50, 30], 5)
 
         # RENDER YOUR GAME HERE
-
+        logic()
         # flip() the display to put your work on screen
         pygame.display.flip()
 
@@ -134,9 +141,9 @@ def scramble():
     for i in board:
         for j in i:
             int = random.randint(0, 100)
-            if int < 90:
+            if int < 95:
                 j.state = False
-            elif int >= 90:
+            elif int >= 95:
                 j.state = True
             else:
                 raise Exception("wtf happened")
