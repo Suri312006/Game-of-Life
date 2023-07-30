@@ -1,8 +1,9 @@
 from unit import Unit
 import random
+import pygame
 
 ROWS = 10
-COLS = 10
+COLS = 100
 
 board = [[Unit() for i in range(COLS)] for j in range(ROWS)]
 
@@ -11,10 +12,9 @@ def main():
 
     scramble()
     print_board()
-    logic()
-    print_board()
-    logic()
-    print_board()
+    while True:
+        logic()
+        print_board()
 
 
 def logic():
@@ -80,7 +80,7 @@ def logic():
             if living == 0 or living == 1:
                 cell.die()
             # Any live cell with 2 or 3 live neighbors stays alive
-            if living == 2 or living == 3:
+            if cell.state and (living == 2 or living == 3):
                 cell.alive()
             # any live cell with more than 3 live neighbors dies (overpopulation)
             if living > 3:
@@ -92,6 +92,9 @@ def logic():
 
 def print_board():
     global board
+    for i in range(len(board[0])):
+        print("_", end = '')
+    print('')
     for i in board:
         for j in i:
             if j.state == True:
@@ -101,15 +104,17 @@ def print_board():
             else:
                 raise TypeError("Unit isnt the correct type")
         print("")
-
+    for i in range(len(board[len(board)-1])):
+        print("_", end='')
+    print('')
 
 def scramble():
     for i in board:
         for j in i:
-            int = random.randint(0, 1)
-            if int == 0:
+            int = random.randint(0, 100)
+            if int < 90:
                 j.state = False
-            elif int == 1:
+            elif int >= 90:
                 j.state = True
             else:
                 raise Exception("wtf happened")
